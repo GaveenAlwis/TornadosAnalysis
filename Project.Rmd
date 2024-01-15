@@ -1,0 +1,352 @@
+---
+title: "Project"
+author: "Gaveen Alwis"
+date: "2023-10-22"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Final Project
+## Introduction
+NOAA's National Weather Service Storm Prediction Center has provided a collection of data, in CSV format, on past tornado's that have swept across America between 1950-2022. The data has a plentiful number of rows,totaling 67,945 rows, and 27 columns. The columns after tidying consist of the data types: int,factor,date(strings were provided, however they were recoded into to factors for the purpose of analysis).Prior to the analysis, a series of cleaning steps were required to be completed.To begin, it was observed that the data naming scheme followed the conventional format, so nothing was changed. Following on from this, the observation was made that some of the data in character format and dbl format could be changed to factor and integer format respectively for ease of analysis (as shown in section 1.1). This completed the majority of the cleaning that could be done by eye. To clean the data that could not be seen by eye, a skim was conducted (shown in figure 1.2). This revealed that the column "sg" had a constant value of 1 for every row in the data set. The lack in variance, would not provide any useful information in the analysis, thus it was removed.Following on from this, it was observed that the columns "stn" and "closs" were not provided any contextual information from the github source the data was retrieved from. It was later discovered that these columns were "discontinued" as per the github,thus they were removed (shown in figure 1.4).Returning to the skim, it was observed that one row did not fit the conventional positive integers between 1-5 structure that was followed for the rest of the magnitude column. With context that the mag column indicates the magnitude of a tornados, and magnitudes do not go into the negatives, it was safe to assume that this row of data was a outlier, therefore it was removed.The skim data was then run one last time, and no other anomalies were found in the response, hence it was assumed that the data was fully clean (as shown in section 1.7.
+
+## Graphs
+To begin analysis on tornado data set, a comparison between a variety of different variables were conducted through the means of graphing.
+
+Firstly, a comparison was made between each state in America and the average magnitude of tornado's it had indured. Both magnitude and state are categorical variables, thus a bar-chart served as the most appropriate means of displaying the data (shown in section 2.2 and figure 1.0). From observation it can be seen that on average the state of "AR" has the highest magnitude tornado's. On the other hand, the states of "VI" and "DC" has the lowest magnitude tornado's. This could indicate that these respective states are more likely to be hit with tornado's of low magnitude, whilst a state like "AR" are more likely to be hit with tornado's of a greater magnitude due to the topology and geography. The graph itself has no shape,location or spread, as the x-axis contains categorical qualitative data, which has not unified order, so the shape of the graph will change from instance to instance. In addition, no definite outlier can be found, as all values hover around the mean value, which will be discussed furthr in the standard deviation section below. However, it can be inferred that the magnitude of 0 states may be outliers, as they have no values, which could indicate a hole in the gathering proccess, however this cannot be proved. As shown in section 2.3, the graph's calculated mean is 0.691, with a standard deviation of 0.31 and median of 0.804. This means that on average across all states, the magnitude of a tornado is most likely going to be around 0.691. The median of 0.804 demonstrates that the body of the magnitudes lie towards the 0 mark rather than the 5 mark,for context, an even distribution would be more likely to see a median around 3. Next, the standard deviation calculated was 0.31. Standard Deviation refers to the the spread of variation of the data from the mean value. In this scenario, the standard deviation value is close to the mean value, indicating a low level of variance between the data points and the mean. Therefore, it can be inferred that the magnitude's are bound to be consistent from state to state, a factor that can also be observed via the graph. Lastly, the 95% confidence interval was calculated to be between 0.6051224-0.7758915. This means that with 95% confidence it can be claimed that the population mean Magnitude given a set of tornados is between the points 0.605 and 0.776. So if this were to be repeated on a new set of data with a similar mean, we can assume that the mean Magnitude would lie between the magnitudes of 0.605 and 0.776.
+
+
+Secondly, a comparison was made between the magnitude of a tornado and its influence on the number of injuries to grasp an understanding on the severity of each class of magnitude. As magnitude is a categorical variable, whilst injuries is a quantitative variable, a box plot was selected to demonstrate the relationship between the two(shown in section 2.4, figure 2.0). When observing the mean values of the box plot, it can be noticed that an exponential growth in the number of injuries is present, as the magnitude of the tornado's increases. From observation, the magnitude 5 tornado has the greatest average number of injuries, hovering around the 400 mark. Whilst the magnitude 0 and 1 tornado's had the minimum number of injuries, with both hovering around the 0-5 on average. From observation it is evident that the data set has a a range of outliers, the main body of which lies around the magnitudes of 0-2, whilst severely decreasing between the magnitudes of 3-5 as shown by the dots above and below the box plots. This could be due to a variety of reason, one of which is the number of values in each magnitude category. To expand on this, as seen in the bar graph previously, a large body of the data lies in the magnitudes between 0-2, such that these categories are more prone to errors, the more data, the more opportunities of errors to arise. On the other hand, the magnitudes of 3-5 have less data points, thus less opportunity for errors to arise. Moreover, a standard deviation of 18.214 was calculated alongside the box plot, which in context is very high. The standard deviation values represents the distance of the data points from the mean of the data. A high standard deviation indicates a larger spread of data and a lower level of confidence. The high standard deviation may be a result of the large number of outliers found in the box plots. A large number of outliers are likely to cause large fluctuations in numbers, thus increasing the distance between data points and the mean, inherently increasing the standard deviation of the data. However, this does not rule out the influence of the box plot graphed. It is possible that these data values will make sense in relation to other data. Suppose an example where a low magnitude tornado's in a highly populated area compared to a high magnitude tornado in a low density area. This would cause the low magnitude tornado to have a greater injury rate than the high magnitude tornado.Lastly, the 95% confidence interval for the number of injuries given a random set of tornados lies between the values of 1.297354-1.571260. Therfore, it can be claimed with 95% confidence that the true population mean of the number of injuries lies between the points 1.297354-1.571260. So if the test were to be done with a subsection of the data, their is a 95% chance that the population mean lies in between 1.297354-1.571260 injured people.
+
+Following on from the high standard deviation of the injuries and the hypothesis that was established, a comparison was made between the amount of property loss (in dollars) against the number of injuries. Cost of property loss was chosen to validity the hypothesis that the number of injuries is influenced by the population density. Property loss will give an indication to whether the area impacted by the tornado was a high or low density area, as a  high property loss would indicate that tornado hit a high populated area, whilst a low property loss would indicate that a tornado hit a low populated area. For the hypothesis to be true, we would expect the number of injuries to linearly increase as the property loss increased. A scatter plot was chosen for this comparison as the two variables that are being compared are both numerical values, and a scatterplot would be able to appropriately graph the two (shown in figure 3.0 and section 2.7). From the output of the scatterplot, it can be seen that on average the number of injuries is evenly distributed among the amount of damage done, with a high concentration of the data lying on the left side of the graph and the bottom. By viewing the peaks and generating a trendline, it can be inferred that the scatter plot was bi-modal with a mean of 117976.9. The standard deviation of loss was 9034341, considering the mean was 117976.9 it can be inferred that this is a very high standard deviation value.This indicates a large distribution of data, which is reflected in the scatterplot. The data points of the left of the graph demonstrate that in low density areas it is possible to have a large number of injuries, and the more dense areas, have similar injuries rates as the low density areas. Therefore it can be assumed that the hypothesis established prior which suggested a connection between population density and the number of injuries to be false. Lastly, a 95% confidence interval for the amount of property damage given a tornado was calculated to lie between 50045.03-185908.77. Therefore it can be claimed that with 95% confidence, the true population mean of a the amount of property damage is given between $50045.03 and 185908.77.If the test were to be repeated with a subsection of the data, the population mean of the value would lie in between these two points, 95% of times.
+
+Next, a comparison was made between the number of tornado's and the month they occurred. A histogram was chosen for this task as histograms are able to effectively communicate the relationships between a categorical and a quantitative variable. The graph is slightly right skewed with the maximum on the 5th Month (May). This suggests that tornado's are most likely to occur in the month of May. On the the hand, the minimum of the graph lies in January, thus it can be inferred that tornados are least likely to occur in January. The shape of the graph is a uni modal with a mean at 5.969166 and a standard deviation of 2.449539.Thus, when compared with the mean, it can be inferred that the months column is tightly distributed, meaning the data can be used with a high level of confidence. From the graph alone, no outliers are evident.The unimodal nature of the graph indicates that the number of tornado's in a given year only increases once, thus suggesting that this is a seasonal occurrence. This hypothesis aligns with what it known on how tornado's form and the influence of weather and temperature. To conclude, a 95% confidence interval was calculated for the month of a given set of tornado to be in between 5.950747-5.987585. It can be inferred with 95% confidence that the true population mean lies in between 5.950747-5.987585 (May-June). If the tests were to be redone with new set of data or a subsection of the current data, the population mean of the number of months would lie between 5.950747-5.98758, 95% of the time.
+
+Lastly, the relationship between the cost of damage against the magnitude of the tornado was calculated. Due to the nature of cost being very large in addition to the categorical and quantitative nature of the variable, a line graph was chosen to provide the greatest amount of clarity. The graph is left skewed with the maximum being at the magnitude of 3. Whilst the magnitude of 1 and 2 have the least. The graph is unimodal with mean at 3. The standard deviation of magnitude is 0.895758, indicating that the data is tightly bound. In relation to the mean and the standard deviation, it can be inferred that the graph has a high level of certainty. Following on from this, the cost related to a magnitude of 5 is unexpected, it was expected that the cost of a magnitude 5 tornado would be greater than a magnitude 4 tornado, however this was not the case in the diagram. This could be due to a variety of factors. The current hypothesis is that the data has not provided enough sample of magnitude 5 tornado for it to be represented in the dataset.Due to this the graph is unimodal, whilst it was expected to be exponential. However, it could also be assumed to be a collection of outlier in the data. Finally, the 95% confidence interval was calculated for the magnitude of a tornado set to be in between 1.771953-1.785424. Therefore it can be claimed be 95% confidence that the true population mean, in regards to magnitude, lies in between 1.771953-1.785424. If the tests were to be repeated, their would be a 95% chance that the population mean would lie somewhere in between these points.
+
+## Modelling
+Following on from this a series of predictive models were constructed to predict a variety of useful information. The predictive model that were used include: Straight line prediction models (linear and multiple regression) followed by curve line prediction models(Logistic regression, Poisson Regression and Regression Trees).
+
+To begin, a linear regression predictive model was constructed to test the relationship between loss and injury. Linear regression models allow for predicting one variable by using another variable through a linear equation. The variable loss and injury were chosen as they would allow scientist to determine the amount of destruction caused by a tornado directly after it occurred using the number of injuries reported to hospitals without endangering themselves. Section 3.0 represents the output of this linear regression, which has calculated the equation y=21236x+87518, in which y represents the price of damage and x represents the number of injuries. Suppose the example where a journalist is wanting to write an article directly after a tornado on it's effects. The journalist identifies 15 injuries, thus the amount of loss would be y=21236*15+87518, totaling $406,058 of damage. However, the validity of the model must be tested via the 4 assumption before practical use. The four assumptions that determine the validity of a linear model is Linearity, Homoscedasticity, Normality and Independence. To begin, Linearity is determines whether a linear function was the best option for the combination of variables. The linearity test conducted in section 3.1 shows a roughly straight horizontal trendline, confirming the linearity of the model. The trendline does curve downwards towards the end, however these values are a large distance away from the main body of data, and thus can be assumed to be outliers. Homoscedasticity tests refers to the variance of noise terms throughout the the dataset. When tested in section 3.2, the graph generated a positive trendline with a slight bump on the far left. However, a correct homoscedasticity tests should have a straight horizontal line throughout the entire graph, thus this does not meet the requirement of homoscedasticity. It can be inferred that this was caused by the concentration of errors on the right hand side of the graph, indicating a larger proportion of errors are concentrated towards the larger values of injuries column. Thirdly, the normality of linear models determines whether the noise terms are normally distributed. Normality is tested in section 3.3 which shows a collection of data that for the majority lies on the dotted line, thus meeting the requirements for normality. A few data points on the left and right of the graph deviate from the dotted line, however these do not influence the normality of the data as the bulk of the data still lies on the dotted lines. It can be inferred that these values that deviate from the dotted lines are examples of outliers. Lastly, independence refers to if the error terms are independent. Independence cannot be demonstrated by a graph, thus the question "Could the observations from one subject somehow give us more information about the other observations?" must be used to determine the independence. In this instance, the number of injuries do not give us information about the cost of damage, thus the answer to the question is no. Therefore it can be inferred that the linear regression model is independent.From analysis of these 4 assumption, it can be inferred that the linear regression model is mostly valid model, however as it did not pass to homoscedastictity test, it cannot be used in a practical sense.
+
+Similar to linear regression, multiple regression attempts to build a relationship between variables. Unlike linear regression, multiple regression takes a series of independent variables. The multiple regression built in this assignment attempts to predict the number of injuries from the independent variables, magnitude,state,length of tornado and width of tornado (shown in section 3.4). Following this, the Anova() function was run to determine the P-Values of the independent variables as shown in section 3.5. From observation, it is evident that none of the P-Values for the independent variables fall under the minimum of 0.05. Therefore it is inferred that all the independent variables chosen were valid and useful. This model could be used in practice to prepare hospitals with the right amount of equipment for an incoming tornado. Similar to the linear regression model, the 4 assumptions were tested on the multiple regression to determines it's validity. To begin, the linearity of the model was tested, to determine whether the relationship between the dependent and independent variables are linear, as multiple regression is best suited for linear relationships. As shown in section 3.6, the data points of the model follow a horizontal straight line, and thus meet the requirements of linearity. Secondly the homoscedasticity was tested, to determine whether the noise terms all have the same variance.Homoscedasticity was tested in section 3.7, in which the trendline contained a strongly positive relationship, almost linear. However for the data to be claimed to be homoscedasticity, it must be a straight horizontal line, which this model does not contain. Thus this model can not be claimed to meet the requirement for homoscedasticity. Following on from this, the normality of the model was calculated to determine whether the noise terms are normally distributed. This was done in section 3.8, which shows the majority of the data lying on the grey dotted line.Thus, the multiple regression models meet the requirements of normality. Lastly, independence was tested through the question "Could the observations from one subject somehow give us more information about the other observations?" to determine whether the error terms were independent. It can be inferred that the number of injuries do not give us more information on the independent variable, and thus meeting the requirements for independence. As the model did not meet all 4 requirements of validity, it cannot be used in a practical sense. However, it is thought that the influence of errors has not hindered the model greatly. Thus, it can be inferred that the model can still be used to get approximations of the number of injured people after a tornado.
+
+Next, a 3 types of curve line prediction models were built, these 3 were Logistic regression, Poisson Regression and Regression Trees.
+
+To begin, the poisson regression model, is a tool that often provides model comparing count variables to a series of independent variables.For this scenario, it was chosen for the price of damage (loss) to be the response variable, and the predictors to be length,width,magnitude and state.Using this model, a prediction can be made of the average cost of damage, depending on the length,width,magnitude of the tornado and state of where it has occurred. Loss was chosen as the response variable for this model as it would be able to provide greater accuracy than the linear model build prior. However, this does not devalue the linear model, the linear model will provide results quicker, and does not require as many predictor variables. As the response variable for poisson regression models are required to be positive, whole number, the loss values were rounded to the nearest whole number.The output of this model is shown in section 3.10. It is common practice for any "PR" values greater than 0.05 to be removed. However,in this instance, the only variables greater than 0.05 is a small number of states that do not greatly influence the final model, it was decided that they were not going to be removed. This model is now able to efficently calculte a approximate cost of damage given length,width,magnitude and state.
+
+Following on from this, a regression tree was built which incorporates all the variables in the dataset and attempts to calculate the magnitude based on the values of the other variables. This model is displayed through a tree diagram, as shown in 3.11. A regression tree attempts to model a relationship between a response variable and a series of predictor variables from the dataset. The appropriate predictor variables are chosen by the program, and will only select the most influential variables that impact the end result. From the tree generated, it can be observed that the influential predictor variables are the number of injured, price of damage(loss),width,length and date. Using these variables, this graph is able to provide a rough estimate of the magnitude of the tornado. Further inspection of the graph, however revealed that the magnitude values only reach 3.9, which can be assumed to be 4. Therefore, magnitude of 5 tornado's will never be calculated in this model. This error may have arisen due to the number of outlier values, or a miscalculation that happened in the generation process. Furthermore, in section 3.13 the most valuable predictor variable was calculated, from the graph, it is evident that the injury variable is the most important. Therfore, it can be inferred that the injury column has the greatest relationship to the magnitude of a tornado.Moreover in section 3.14, the regression tree is tested by the program.From the results which were outputted, it can be inferred that the regression tree is a viable model for practical use.
+
+Logistic regression model attempt to predict a binary outcome, given a number of predictor variable. For this report, a logistic regression model was built to predict whether the number of injuries would be greater than 5, given the magnitude of the tornado, the state in which it occurred, cost of damage, width of tornado and length of tornado (shown in section 3.15). When the output of the model was observed, it was found that the state, for a majority, and price of damage possessed P-Values greater than 0.05, indicating that they were less significant, therefore the decision was made to remove States and loss altogether and rerun the model,as shown in section 3.16.From inspection of the output, the values seemed to be correct, and all p-values were less than 0.05, thus it was assumed that the logistic regression was correct and complete. To test the validity of the model, a combination of the predict() function and roc curves were used. Using this, a graph was generated, as shown in section 3.17.From observation, the graph met expectation. Just guessing whether their would be more than 5 injuries, would be represented by the 45degree dotted line, and the trendline which represents the logistic regression, is much more accurate, represented by the prominent asymptotic shape. Therefore, it can be inferred that the logistic regression was successful and a valid model. This model could be used in a real world context by changing the number of injuries amount and calculating the probability of injuries, better preparing hospitals.
+
+## Reveiw
+In Recollection, a variety of different factors and information were learnt throughout the undertaking of this assignment in regards to Tornado's and how to predict a variety of different factors from it. To begin, via the bar chart it was observed that different states in America endure different scales of tornado's, with some enduring on average magnitude 1 tornado's, whilst other enduring none. From what is known about tornado's, it can be inferred that the topology, geography and weather determine whether a tornado is formed. Following on from this, through the box plot and the scatter plot, it was observed that the magnitude of a tornado influences the injuries, whilst the price in damage does not. In addition, to observing that the month of may had the most number of tornado's, which reinforces the ideas established prior that the weather has an influence on the creation of tornado.Furthermore, it was discovered that magnitude 3 tornado's had the greatest amount of damage on property. From the graph's onwards, the amount of new information on tornado's was limited as the graphs often do most of the heavy lifting. However, it was identified that the linear relationship between price of damage and number of injuries is y=21236x+87518. In addition to learning that injury has the greatest influence on the magnitude of a tornado.
+
+In consideration of the all the data presented and the model constructed, a large number of observation were made.To begin, it was evident that throughout all of the models and graphs, that a large number of errors and outliers were present within the data set. These errors and outliers have negatively influenced the graphs and models created. In construction of the models and graphs,the severity of the errors and outliers were not evident,however the impact of the errors and outlier were clear when the analysis of each graph and model came into fruition.If this report were to be done again, the outlier and the errors would be removed prior to the construction of the graphs and models. Moreover, moving forward, graphs and models will be analysed directly after they have been built, stopping any errors from bleeding into other models.Next,it was evident whilst analyzing the data that although the graph had a large number of different data and data types, it was found that only a few of the data was actually usable in analysis and the construction of models. The result of this is multiple models and graphs using similar, sometimes identical, predictor and response variables. Moving forwards, datasets containing a larger variety of data will be selected, in addition to better selecting predictor and response variable when model and graphs are constructed.
+
+## Conclusion
+In conclusion, this report attempts to analyse and interpret the data from the Tornado's dataset, provided by the NOAA's National Weather Service Storm Prediction Center. The dataset consists of a series of variables which inform about the tornado itself and it's after affects on the residents it hit.Before any analysis could be conducted, the dataset had to be cleaned, by reallocating data types to meet the requirements of the graphs and models being built. In addition to removing unused or non-complete columns and removing evident outliers. Following the cleaning, 5 graphs were built to analyse and demonstrate the relationships between variables.The bar graph compared the states to the average magnitude of the tornado's in that state. From this, it could be understood that certain states are more likely to have higher magnitude tornado than other, whilst others are likely to have a lower magnitude. Thus it can be inferred that the typography and geography of a state influences the magnitude of the tornado's it endures.Next, a bar chart demonstrated the relationship between each magnitude and the number of injuries it causes. This graph demonstrated a exponential relationship between the two variable. Thus, it can be inferred that the the greater the magnitude of a tornado, the greater chance of civilians being injured.Following on from this, a scatter plot was drafted up comparing the price of damage to the number of injuries, to test the hypothesis that more dense areas have a greater number of casualties. This was done by representing price of damage as highly dense areas, as it is common sense that largely dense areas hit by a tornado's are more likely to have a high price of damage. However from inspection of the graph outputted, no such conclusion can be made due to the large spread of the data throughout the entire graph. This infers that the density of the area does not influence the number of injured civilians.Furthermore, a histogram was built to determine which months are more likely to have tornado's. The output was a rightly skewed unimodal dataset which contained a maximum at month=5.Therfore it can be inferred that tornados are most likely to occur in the month of May. Lastly, a line graph was generated to determine wheather the magnitude of the tornados influences the amount of damage it cause to properties. The graph was a unimodal left skewed set of data, which had a maximum at magnitude 4. Surprisingly, tornados of magnitude 5 do not have greater amount of damage on property as a tornado with magnitude 4. It could be inferred that magnitude 5 tornado are more likely to occur is deserted area, thus impacting less properties. However, this could also be due to the little number of magnitude 5 tornado's in the dataset.Proceeding with the information gathered from the graphs, a series of models were built to predict various different factors in a real world setting, begging with a linear regression. The linear regression model builds a relationship between the response variable,cost of damage, and the predictor variables, number of injuries. Using the model the linear equation y=21236x+87518 was derived, which could be used in a real world context to make quick calculation of the total damage costs based off the number of injuries reported to the nearby hospitals. Next a multiple linear regression was built to compare the response variable,number of injuries, to the predictor variables,magnitude,state,length and width. Using this information, and the predict() function, the number of injuries can be calculated, using the predictor variable, to better prepare hospitals.Following on from this,a poisson regression model was built to determine price of damage depending on the length,width,magnitude and the state in which the tornado occurred. From observation of the p-Values and the estimates, it can be assumed that this model is valid and provides a clear and accurate way to calculate an estimate of the amount of damage a town or state sustains from a tornado. Following on from this, a regression tree was built to calculate the magnitude of a tornado. The graph that was generated provided a easy way for the average consumer to calculate the magnitude of a tornado. In addition to this, it was shown through tests, that magnitude has the greatest relationship with injury, thus it can be inferred that injury influences the calculation of magnitude. Lastly, a logistic regression was built which allows for prediction on whether their would be greater than 5 injuries. This model could be used to calculate to better prepare hospitals for incoming tornado's. The confidence of this model was calculated via a ROC curve, which followed a asymptotic trendline as expected. Throughout the duration of this report, a series of errors negatively influenced the final result of the models and the graphs built. The biggest of these errors were the number of outliers in the data. Retrospectively, it should have been assumed that in a data of greater than 65,000 rows, their would be an abundance of outliers. These outliers caused graphs and models to be miscalculated, however it can be inferred that the deviation from the true values were minor, as the number of outliers were small. Moving forward, outliers will be removed in the cleaning step of analysis, so that it does not influence the final result.
+```{r}
+## Section 1.0-Loading in the required R Libraries and data
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(rsample)
+library(vip)
+library(skimr)
+library(parsnip)
+library(rpart)
+library(broom)
+library(tidymodels)
+library(knitr)
+tornados<-read_csv("https://www.spc.noaa.gov/wcm/data/1950-2022_actual_tornadoes.csv")
+head(tornados)
+```
+```{r}
+## Section 1.1-Establishing Column Data Types
+tornados$om<-as.integer(tornados$om)
+tornados$yr<-as.factor(tornados$yr)
+tornados$mo<-as.integer(tornados$mo)
+tornados$dy<-as.integer(tornados$dy)
+tornados$tz<-as.integer(tornados$tz)
+tornados$st<-as.factor(tornados$st)
+tornados$stf<-as.integer(tornados$stf)
+tornados$stn<-as.integer(tornados$stn)
+tornados$mag<-as.integer(tornados$mag)
+tornados$inj<-as.integer(tornados$inj)
+tornados$fat<-as.integer(tornados$fat)
+tornados$ns<-as.integer(tornados$ns)
+tornados$sn<-as.integer(tornados$sn)
+tornados$sg<-as.integer(tornados$sg)
+tornados$f1<-as.integer(tornados$f1)
+tornados$f2<-as.integer(tornados$f2)
+tornados$f3<-as.integer(tornados$f3)
+tornados$f4<-as.integer(tornados$f4)
+tornados$fc<-as.integer(tornados$fc)
+head(tornados)
+```
+```{r}
+## Section 1.2-Skimming Data to observe outliers or errors in the data
+## NOTE: SKIMS HAD TO BE COMMENTED OUT DUE TO ERROS WHEN RENDERING USING KNIT
+##skim(tornados)
+```
+```{r}
+## Section 1.3- Removing "sg" as the column is not viable for analysis
+tornados<-tornados%>%select(-sg)
+head(tornados)
+```
+```{r}
+## Section 1.4-"STN" and "Closs" were removed, due to being referenced as "discontinued" 
+## by the source (github)
+tornados<-tornados%>%select(-stn)
+tornados<-tornados%>%select(-closs)
+head(tornados)
+```
+```{r}
+## Section 1.5-Reskimming data to find any missed errors, and to check if data is fully cleaned
+## NOTE: SKIMS HAD TO BE COMMENTED OUT DUE TO ERROS WHEN RENDERING USING KNIT
+##skim(tornados)
+```
+```{r}
+## Section 1.6- From the skim it can be seen that the mag has a negative value and the rest
+##seem to lie around the 1 mark. By looking through the data it seems to indicate that -9
+##is an outlier. This could made it to two different values, either NA or 0. But NA was 
+##chosen as we don't know for sure what the value could have been.
+tornados<-tornados[tornados$mag!=-9,]
+## NOTE: SKIMS HAD TO BE COMMENTED OUT DUE TO ERROS WHEN RENDERING USING KNIT
+##skim(tornados)
+```
+```{r}
+## Section 1.7-Final Cleaned Dataset.
+head(tornados)
+```
+```{r}
+## Section 2.1- Building another table with the mean magnitude of tornado's per state in America.
+tornados_meanMag<-tornados%>%group_by(st)%>%summarise(meanMag=mean(mag,na.rm = TRUE))
+tornados_meanMag
+```
+
+
+```{r}
+## Section 2.2-Bar graph comparing each state in America against it's respective mean magnitude.
+tornados$mag<-as.factor(tornados$mag)
+ggplot(tornados_meanMag,aes(x=st,y=meanMag))+geom_bar(stat="identity")+
+  labs(title="States In America against their respective mean magnitude of Tornado's")+
+  theme(axis.text.x = element_text(angle=90) )+
+  annotate("text",x=Inf,y=-Inf,
+           label="Figure 1.0-Bar graph comparing each state in America against it's respective mean magnitude of Tornados",hjust=1,vjust=-0.5,size=3)
+
+```
+```{r}
+## Section 2.3- Mean,Median and SD of the mean magnitude values.
+mag_state_mean<-mean(tornados_meanMag$meanMag)
+mag_state_sd<-sd(tornados_meanMag$meanMag)
+mag_state_median<-median(tornados_meanMag$meanMag)
+mag_state_length<-length(tornados_meanMag$meanMag)
+mag_state_summary<-
+  data.frame(Observations=c("Mean","SD","Median","Length"),
+             Values=c(mag_state_mean,mag_state_sd,mag_state_median,mag_state_length))
+mag_state_summary
+```
+```{r}
+## From Week 5 Modules:
+t <- qt(p = 0.025, df = mag_state_length-1, lower.tail = FALSE)
+lwr <- mag_state_mean - t * mag_state_sd / sqrt(mag_state_length)
+upr <- mag_state_mean + t * mag_state_sd / sqrt(mag_state_length)
+ci <- c(lwr = lwr, upr = upr)
+ci
+```
+
+```{r}
+## Section 2.4-Box Plot comparing each stage of magnitude values to the number of injuries they have caused.
+ggplot(tornados,aes(mag,inj))+geom_boxplot()+
+  labs(title="Box plot of Tornado Magnitudes against the number of injuries they have caused.")+scale_y_continuous(trans=scales::pseudo_log_trans(base=10))+
+  annotate("text",x=Inf,y=-Inf,
+           label="Figure 2.0- Box Plot comparing tornado magnitudes against the number of injuries throught America between 1950-2022",hjust=1,vjust=-0.5,size=3)+
+  labs(x="Magnitude",y="Number of Injuries")
+```
+```{r}
+## Section 2.5-Calculating the Standard Deviation of the number of injuries
+inj_sd<-sd(tornados$inj)
+## Section 2.6-Calculating the mean number of injuries sustained in a tornado
+inj_mean<-mean(tornados$inj)
+inj_length<-length(tornados$inj)
+t_sd <- qt(p = 0.025, df = inj_length-1, lower.tail = FALSE)
+lwr <- inj_mean - t_sd * inj_sd / sqrt(inj_length)
+upr <- inj_mean + t_sd * inj_sd / sqrt(inj_length)
+ci_length <- c(lwr = lwr, upr = upr)
+ci_length
+```
+
+```{r}
+## Section 2.7-Scatter Plot comparing the amount of damage(USD) to the number of injuries sustained
+ggplot(tornados,aes(x=loss,y=inj))+geom_point()+
+  labs(title="Scatter Plot comparing the amount of damage to the number of injuries sustained")+
+  scale_x_continuous(trans=scales::pseudo_log_trans(base=2))+
+  scale_y_continuous(trans=scales::pseudo_log_trans(base=10))+
+  annotate("text",x=Inf,y=-Inf,
+           label="Figure 3.0- Scatter Plot comparing the amount of damage(USD) caused by a Tornado to the number of injuries sustained.",hjust=1,vjust=-0.5,size=3)+
+  labs(x="Property Damage ($)",y="Number of Injured People")
+```
+```{r}
+mean_loss<-mean(tornados$loss)
+sd_loss<-sd(tornados$loss)
+length_loss<-length(tornados$loss)
+t_loss <- qt(p = 0.025, df = length_loss-1, lower.tail = FALSE)
+lwr <- mean_loss - t_loss * sd_loss / sqrt(length_loss)
+upr <- mean_loss + t_loss * sd_loss / sqrt(length_loss)
+ci_loss <- c(lwr = lwr, upr = upr)
+ci_loss
+```
+
+```{r}
+## Section 2.8-Histogram comparing each month to the number of tornado's that occurred.
+ggplot(tornados,aes(mo))+geom_histogram()+
+  labs(title="Histogram comparing each month to the number of tornado's that occurred.")+
+  annotate("text",x=Inf,y=-Inf,
+           label="Figure 4.0- Histogram comparing each month to the number of tornado's that occurred in America between 1950-2022.",hjust=1,vjust=-0.5,size=3)+
+  labs(x="Month",y="Number of Tornados")
+```
+```{r}
+mean_mo<-mean(tornados$mo)
+sd_mo<-sd(tornados$mo)
+length_mo<-length(tornados$mo)
+t_mo <- qt(p = 0.025, df = length_mo-1, lower.tail = FALSE)
+lwr <- mean_mo - t_mo * sd_mo / sqrt(length_mo)
+upr <- mean_mo + t_mo * sd_mo / sqrt(length_mo)
+ci_mo <- c(lwr = lwr, upr = upr)
+ci_mo
+
+```
+
+```{r}
+## Section 2.9-Line graph comparing the magnitude to the price of damage caused(USD)
+ggplot(tornados,aes(mag,loss))+geom_line()+
+  labs(title="Line graph comparing the magnitude to the price of damage caused(USD)")+
+  annotate("text",x=Inf,y=-Inf,label="Figure 5.0- Line graph comparing the magnitude to the price of damage caused(USD) in America between 1950-2022.",hjust=1,vjust=-0.5,size=3)+
+  labs(x="Magnitude",y="Property Damage($)")
+```
+```{r}
+tornados$mag<-as.integer(tornados$mag)
+mag_sd<-sd(tornados$mag)
+mag_mean<-mean(tornados$mag)
+mag_length<-length(tornados$mag)
+t_mag <- qt(p = 0.025, df = mag_length-1, lower.tail = FALSE)
+lwr <- mag_mean - t_mag * mag_sd / sqrt(mag_length)
+upr <- mag_mean + t_mag * mag_sd / sqrt(mag_length)
+ci_mag <- c(lwr = lwr, upr = upr)
+ci_mag
+
+```
+```{r}
+tornados$mag<-as.factor(tornados$mag)
+```
+
+```{r}
+## Section 3.0-Linear Regression model predicting Price of damage(USD) from the number of injuries.
+inj_lm<-lm((loss)~(inj),data=tornados)
+summary(inj_lm)
+```
+```{r}
+## Section 3.1-Linearity Test of linear Regression Model in section 3.0.
+plot(inj_lm, which = 1)
+```
+```{r}
+## Section 3.2-Homoscedasticity Test of linear Regression Model in section 3.0.
+plot(inj_lm, which = 3)
+```
+```{r}
+## Section 3.3-Normality Test of linear Regression Model in section 3.0.
+plot(inj_lm, which = 2)
+```
+```{r}
+## Section 3.4-Multiple Regression model predicting the number of injured citizen from a tornado given the magnitude, state, length and width.
+inj_multiple_lm<-lm((inj)~(mag)+st+len+wid,data=tornados)
+summary(inj_multiple_lm)
+```
+```{r}
+## Section 3.5-ANOVA Test of multiple Regression Model in section 3.4.
+anova(inj_multiple_lm)
+```
+
+```{r}
+## Section 3.6-Linearity Test of multiple Regression Model in section 3.4.
+plot(inj_multiple_lm, which = 1)
+```
+```{r}
+## Section 3.7-Homoscedasticity Test of multiple Regression Model in section 3.4.
+plot(inj_multiple_lm, which = 3)
+```
+```{r}
+## Section 3.8-Normality Test of multiple Regression Model in section 3.4.
+plot(inj_multiple_lm, which = 2)
+```
+
+
+
+```{r}
+## Section 3.9-Prediction Test of multiple Regression Model in section 3.4.
+predict(inj_multiple_lm,newdata = tibble(mag="3",st="IL",len=2.8,wid=50))
+```
+
+```{r}
+## Section-3.10-Poisson Regression Model
+tornados$loss <- round(tornados$loss)
+tornadosPoiss<-glm(loss~len+wid+mag+st,family = poisson(link="log"),
+                   data=tornados)
+summary(tornadosPoiss)
+```
+
+```{r}
+## Section 3.11- Regression Tree
+set.seed(1223)
+tornados_split<-initial_split(tornados)
+tornados_train<-training(tornados_split)
+tornados_test<-testing(tornados_split)
+## Code from Week 9: Regression Trees — An Example
+tornados_train$mag<-as.integer(tornados_train$mag)
+reg_tree_spec<-decision_tree( mode = "regression" ) %>% set_engine( "rpart" )
+tornados_tree<-reg_tree_spec%>%fit(mag~.,data=tornados_train)
+plot(tornados_tree$fit,uniform = TRUE,cex=0.8)
+text(tornados_tree$fit,pretty=0,cex=0.6)
+```
+```{r}
+## Section 3.12-Checking if Tree is in a tree structure
+tornados_tree
+```
+```{r}
+## Section 3.13- Most Influential Variable in the tree
+tornados_tree%>%vip(num_features=)+theme_minimal()
+```
+
+```{r}
+## Section 3.14- Testing Prediction capability of regression tree using predict()
+## NOTE: THIS HAD TO BE COMMENTED OUT DUE TO ERRORS DURING KNITTING
+##tornados_test$mag<-as.factor(tornados_test$mag)
+##tornados_testing_prediction<-as.factor(tornados_testing_prediction$mag)
+##tornados_testing_prediction<-tornados_tree%>%
+  ##predict(new_data = tornados_test)%>%bind_cols(tornados_test)
+##tornados_testing_prediction%>%metrics(truth=mag,estimate=.pred)
+```
+```{r}
+## Section 3.15-Logistic Regression Model
+tornados$inj_over5<-ifelse(tornados$inj>5,1,0)
+tornados_logistic<-glm(inj_over5~mag+st+loss+len+wid,data=tornados,family=binomial())
+summary(tornados_logistic)
+```
+```{r}
+## Section 3.16-Logistic Regression Model, but state and loss removed due to the high p-values.
+tornados_logistic<-glm(inj_over5~mag+len+wid,data=tornados,family=binomial())
+summary(tornados_logistic)
+```
+```{r}
+## Section 3.17- Using ROC Curves to test validity of Logistic Regression Model
+library(pROC)
+predict_logistic<-predict(tornados_logistic,type="response")
+roc_logistic<-roc(tornados$inj_over5,predict_logistic)
+plot(roc_logistic)
+```
